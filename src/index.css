@@ -224,6 +224,10 @@ main {
   cursor: pointer;
 }
 
+.selected {
+  background-color: var(--clr-selected);
+}
+
 
 
 

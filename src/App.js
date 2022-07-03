@@ -19,13 +19,14 @@ function App() {
   const questElems = allQuestions.map((question) => {
     const allAnswers = [...question.incorrect_answers, question.correct_answer]
     const shuffledAnswers = allAnswers.sort(() => Math.random() - 0.5)
+
     return (
       <Question
         key={nanoid()}
         question={question.question}
         answers={shuffledAnswers}
         correctAnswer={question.correct_answer}
-        isSelected={false}
+        isSelectedCorrect={false}
       />
     )
   })
