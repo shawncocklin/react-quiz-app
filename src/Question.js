@@ -30,7 +30,10 @@ export default function Question(props) {
               ...answer,
               isSelected: !answer.isSelected,
             }
-          : answer
+          : {
+              ...answer,
+              isSelected: false,
+            }
       })
     })
     console.log('clciked')
