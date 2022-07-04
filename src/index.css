@@ -209,6 +209,23 @@ main {
   transform: scale(.95);
 }
 
+.btn-primary {
+  padding: 11px 22px;
+  border-radius: 10px;
+  background-color: var(--clr-secondary);
+  color: var(--clr-primary);
+  border: none;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  color: var(--clr-secondary);
+}
+
+.check {
+  margin-top: 20px;
+}
+
 
 .answer-group {
   gap: 12px;

@@ -26,11 +26,21 @@ function App() {
         question={question.question}
         answers={shuffledAnswers}
         correctAnswer={question.correct_answer}
-        isSelectedCorrect={false}
+        correctSelected={false}
       />
     )
   })
-  return <main className="flow">{questElems}</main>
+
+  return (
+    <main className="flow">
+      {questElems}
+      <div className="flex justify-center check">
+        <button className="btn btn-primary fw-semibold fs fs-100">
+          Check Answers
+        </button>
+      </div>
+    </main>
+  )
 }
 
 export default App

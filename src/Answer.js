@@ -2,7 +2,6 @@ import React from 'react'
 import { nanoid } from 'nanoid'
 
 export default function Answer(props) {
-  console.log(props.isSelected)
   return (
     <button
       key={nanoid()}

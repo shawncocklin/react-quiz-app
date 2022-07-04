@@ -4,7 +4,7 @@ import parse from 'html-react-parser'
 import { nanoid } from 'nanoid'
 
 export default function Question(props) {
-  const [selectedAnswer, setSelectedAnswer] = useState(generateAnswerGroup())
+  const [allAnswers, setAllAnswers] = useState(generateAnswerGroup())
 
   function generateAnswerGroup() {
     const answerGroup = []
@@ -16,14 +16,17 @@ export default function Question(props) {
 
   function generateSingleAnswer(answerText) {
     return {
-      text: answerText,
+      text: parse(answerText),
       id: nanoid(),
       isSelected: false,
+      isCorrect: answerText === props.correctAnswer ? true : false,
     }
   }
 
+  console.log(allAnswers)
+
   function toggleSelected(id) {
-    setSelectedAnswer((prevAnswer) => {
+    setAllAnswers((prevAnswer) => {
       return prevAnswer.map((answer) => {
         return answer.id === id
           ? {
@@ -36,13 +39,9 @@ export default function Question(props) {
             }
       })
     })
-    console.log('clciked')
   }
 
-  console.log(selectedAnswer)
-
-  const answerElems = selectedAnswer.map((answer) => {
-    // console.log(answer)
+  const answerElems = allAnswers.map((answer) => {
     return (
       <Answer
         key={nanoid()}
