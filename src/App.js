@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react'
 import { nanoid } from 'nanoid'
+import parse from 'html-react-parser'
 import Question from './Question'
 
 function App() {
   const [allQuestions, setAllQuestions] = useState([])
+  const [allAnswers, setAllAnswers] = useState([])
+
+  // let dataLoaded = false
 
   useEffect(() => {
     async function getQuizData() {
@@ -16,17 +20,43 @@ function App() {
     getQuizData()
   }, [])
 
+  function generateAnswerGroup() {
+    const answerGroup = []
+    const answers = allQuestions.map((question) => {
+      return [...question.incorrect_answers, question.correct_answer]
+    })
+    // console.log(answers)
+    for (let i = 0; i < 4; i++) {
+      // console.log(allQuestions[i])
+      answerGroup.push(generateSingleAnswer(answers))
+    }
+    return answerGroup
+  }
+
+  function generateSingleAnswer(answer, index) {
+    return {
+      text: answer,
+      id: nanoid(),
+      isSelected: false,
+      isCorrect: false,
+    }
+  }
+
+  useEffect(() => {
+    if (allQuestions.length > 0) {
+      setAllAnswers(generateAnswerGroup())
+    }
+  }, [allQuestions])
+
   const questElems = allQuestions.map((question) => {
-    const allAnswers = [...question.incorrect_answers, question.correct_answer]
-    const shuffledAnswers = allAnswers.sort(() => Math.random() - 0.5)
+    // shuffledAnswers = answers.sort(() => Math.random() - 0.5)
 
     return (
       <Question
         key={nanoid()}
         question={question.question}
-        answers={shuffledAnswers}
-        correctAnswer={question.correct_answer}
         correctSelected={false}
+        allAnswers={allAnswers}
       />
     )
   })
